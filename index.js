@@ -10,14 +10,9 @@ const app = express();
 app.use(express.static("public"));
 
 //Rutas
-// app.get("/", (req, res) => {
-//   console.log("se requiere el /");
+app.use("/api/auth", require("./routes/auth"));
 
-//   res.json({
-//     ok: true,
-//   });
-// });
-
+//TODO: CRUD// Eventos
 //Escuchar peticiones
 app.listen(process.env.PORT, () => {
   console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
