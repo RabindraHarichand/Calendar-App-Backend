@@ -1,5 +1,7 @@
-const express = require("express");
-require("dotenv").config();
+import express from "express";
+import "dotenv/config";
+
+import authRouter from "./routes/auth.js";
 
 // console.log(process.env);
 
@@ -10,7 +12,7 @@ const app = express();
 app.use(express.static("public"));
 
 //Rutas
-app.use("/api/auth", require("./routes/auth"));
+app.use("/api/auth", authRouter);
 
 //TODO: CRUD// Eventos
 //Escuchar peticiones
