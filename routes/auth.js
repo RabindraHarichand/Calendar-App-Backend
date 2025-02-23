@@ -4,6 +4,7 @@
 */
 
 import { Router } from "express";
+import { check } from "express-validator";
 const router = Router();
 
 import {
@@ -12,9 +13,30 @@ import {
   revalidarToken,
 } from "../controllers/auth.js";
 
-router.post("/new", crearUsuario);
+router.post(
+  "/new",
+  [
+    check("name", "El nombre es obligatorio").notEmpty(),
+    check("email", "El email es obligatorio").isEmail(),
 
-router.post("/", loginUsuario);
+    check("password", "El password debe ser de 6 caracteres").isLength({
+      min: 6,
+    }),
+  ],
+  crearUsuario
+);
+
+router.post(
+  "/",
+  [
+    check("email", "El email es obligatorio").isEmail(),
+
+    check("password", "El password debe ser de 6 caracteres").isLength({
+      min: 6,
+    }),
+  ],
+  loginUsuario
+);
 
 router.get("/renew", revalidarToken);
 
