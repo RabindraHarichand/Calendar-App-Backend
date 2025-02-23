@@ -1,16 +1,25 @@
 import { response } from "express";
-import { validationResult } from "express-validator";
+import Usuario from "../models/Usuario.js";
 
-export const crearUsuario = (req, res = response) => {
-  const { name, email, password } = req.body;
+export const crearUsuario = async (req, res = response) => {
+  // const { name, email, password } = req.body;
 
-  res.status(201).json({
-    ok: true,
-    msg: "registro",
-    name,
-    email,
-    password,
-  });
+  try {
+    const usuario = new Usuario(req.body);
+
+    await usuario.save();
+
+    res.status(201).json({
+      ok: true,
+      msg: "registro",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
 };
 
 export const loginUsuario = (req, res = response) => {
