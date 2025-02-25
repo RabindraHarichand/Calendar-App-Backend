@@ -1,6 +1,7 @@
 import express from "express";
 import "dotenv/config";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import authRouter from "./routes/auth.js";
 import eventRouter from "./routes/events.js";
 import { dbConnection } from "./database/config.js";
@@ -9,6 +10,10 @@ import cors from "cors";
 
 //Crear el servidor de express
 const app = express();
+
+//Directorios
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 //Base de Datos
 dbConnection();
