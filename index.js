@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config";
-
+import path from "path";
 import authRouter from "./routes/auth.js";
 import eventRouter from "./routes/events.js";
 import { dbConnection } from "./database/config.js";
@@ -25,6 +25,10 @@ app.use(express.json());
 //Rutas
 app.use("/api/auth", authRouter);
 app.use("/api/events", eventRouter);
+
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
 //TODO: CRUD// Eventos
 //Escuchar peticiones
